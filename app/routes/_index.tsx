@@ -1,40 +1,34 @@
 import type { MetaFunction } from "@remix-run/node";
+import { json, useLoaderData } from "@remix-run/react";
+import { getContactList } from "~/utils/data/db.server";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Shaymin" },
+    { name: "description", content: "The gratitude app" },
   ];
 };
 
+export const loader = () => {
+  const contacts = getContactList();
+  return json(contacts);
+}
+
 export default function Index() {
+  const data = useLoaderData<typeof loader>();
+
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
+      <h1>Say Thanks</h1>
+      <h2>Contacts</h2>
+
       <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
+        {data.map((contact) => (
+          <li key={contact.id}>
+            {/* <a href={`/contacts/${contact.id}`}>{contact.name}</a> */}
+            <span>{contact.name}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );
