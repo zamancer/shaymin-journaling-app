@@ -19,9 +19,28 @@ const SAMPLE_CONTACTS: Contact[] = [
 
 /**
  * Gets a list of contacts
- * 
+ *
  * @returns {Contact[]} - List of contacts
  */
 export const getContactList = () => {
   return SAMPLE_CONTACTS;
+};
+
+export const getContactById = (id: number) => {
+  return SAMPLE_CONTACTS.find((c) => c.id === id);
+};
+
+/**
+ * Updates a contact's last contacted date to today
+ * @param id the contact to update
+ * @returns void
+ */
+export const updateLastContacted = (id: number) => {
+  const contact = SAMPLE_CONTACTS.find((c) => c.id === id);
+  if (contact) {
+    contact.lastContacted = new Date();
+    console.log(
+      `Updated ${contact.name} last contacted to ${contact.lastContacted}`
+    );
+  }
 };
