@@ -7,7 +7,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getContactList, updateLastContacted } from "~/utils/data/db.server";
-import { prettyPrintTimestamp } from "~/utils/data/utils";
+import { prettyPrintTimestamp } from "~/utils/utils";
 
 // Loader function to get data for the route
 export const loader: LoaderFunction = async ({
