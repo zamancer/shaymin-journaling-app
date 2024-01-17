@@ -1,8 +1,12 @@
-# Welcome to Remix!
+# Shaymin - The gratitude app
 
-- [Remix Docs](https://remix.run/docs)
+The Shaymin project is a gratitude journaling app that aims to help me (Alan) become happier and more grateful.
 
-## Development
+The app will have a simple interface that allows me (and eventually other users) to write down what they are grateful for using a local db or private db provider.
+
+> Built with [Remix](https://remix.run/docs)
+
+## Getting Started
 
 From your terminal:
 
