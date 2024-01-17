@@ -1,9 +1,9 @@
 import { LoaderFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getContactList } from "~/utils/data/db.server";
+import { getContactList } from "~/lib/data/db.server";
 
-import { prettyPrintTimestamp } from "~/utils/utils";
-import { getRandomContact } from "~/utils/engines/random";
+import { prettyPrintTimestamp } from "~/lib/utils";
+import { getRandomContact } from "~/lib/engines/random";
 
 export const loader: LoaderFunction = async () => {
   const allContacts = getContactList();

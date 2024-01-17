@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { json, useLoaderData } from "@remix-run/react";
-import { getContactList } from "~/utils/data/db.server";
-import { prettyLastContact } from "~/utils/utils";
+import { getContactList } from "~/lib/data/db.server";
+import { prettyLastContact } from "~/lib/utils";
 
 export const meta: MetaFunction = () => {
   return [
