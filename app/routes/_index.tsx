@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { json, useLoaderData } from "@remix-run/react";
 import { getContactList } from "~/utils/data/db.server";
+import { prettyLastContact } from "~/utils/utils";
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,11 +23,40 @@ export default function Index() {
       <h1>Say Thanks</h1>
       <h2>Contacts</h2>
 
-      <ul>
+      <ul 
+      style={
+        {
+          listStyle: "none",
+          padding: "0",
+          margin: "0",
+          maxWidth: "500px",
+        }
+      }
+      >
         {data.map((contact) => (
           <li key={contact.id}>
-            {/* <a href={`/contacts/${contact.id}`}>{contact.name}</a> */}
-            <span>{contact.name}</span>
+            <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0.5rem",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                  margin: "0.5rem 0",
+                }}
+              >
+                <div>
+                  <h3>{contact.name}</h3>
+                  <p>Last Contacted: {prettyLastContact(contact.lastContacted)}</p>
+                </div>
+                <div>
+                  <a href={`/contacts/${contact.id}`}>
+                  Send Thanks
+                  </a>
+                </div>
+              </div>
+            
           </li>
         ))}
       </ul>
