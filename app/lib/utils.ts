@@ -1,3 +1,6 @@
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
 /**
  * Pretty prints a stringified date as a timestamp.
  * If the date is null, returns an empty string.
@@ -51,4 +54,8 @@ export const prettyLastContact = (dataStr: string | null) => {
     } else {
         return "Not yet";
     }
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }

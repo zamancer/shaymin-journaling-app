@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-import { json, useLoaderData } from "@remix-run/react";
+import { Link, json, useLoaderData } from "@remix-run/react";
+import { Button } from "~/components/ui/button";
 import { getContactList } from "~/lib/data/db.server";
 import { prettyLastContact } from "~/lib/utils";
 
@@ -34,12 +35,11 @@ export default function Index() {
                 </p>
               </div>
               <div>
-                <a
-                  href={`/contacts/${contact.id}`}
-                  className="underline hover:no-underline"
-                >
+                <Button asChild>
+                  <Link to={`/contacts/${contact.id}`}>
                   Send Thanks
-                </a>
+                  </Link>
+                </Button>
               </div>
             </div>
           </li>
