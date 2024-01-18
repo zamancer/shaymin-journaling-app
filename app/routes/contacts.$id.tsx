@@ -6,6 +6,14 @@ import {
   redirect,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { getContactList, updateLastContacted } from "~/lib/data/db.server";
 import { prettyPrintTimestamp } from "~/lib/utils";
 
@@ -13,7 +21,6 @@ import { prettyPrintTimestamp } from "~/lib/utils";
 export const loader: LoaderFunction = async ({
   params,
 }: LoaderFunctionArgs) => {
-
   let selectedContact = null;
   const allContacts = getContactList();
 
@@ -21,7 +28,6 @@ export const loader: LoaderFunction = async ({
     selectedContact = allContacts.find(
       (contact) => contact.id === Number(params.id)
     );
-    
   } else {
     selectedContact = allContacts[0];
   }
@@ -49,18 +55,24 @@ export default function ContactRoute() {
   const contact = useLoaderData<typeof loader>();
 
   return (
-    <div>
-      <h1>Contact to Reach Out</h1>
-      <p>Name: {contact.name}</p>
-      <p>Last Contacted: {prettyPrintTimestamp(contact.lastContacted)}</p>
+    <main className="flex justify-center py-4">
+      <section>
+        <Card className="max-w-xl">
+          <CardHeader>
+            <CardTitle>{contact.name}</CardTitle>
+            <CardDescription>
+              Last Contacted: {prettyPrintTimestamp(contact.lastContacted)}
+            </CardDescription>
+          </CardHeader>
 
-      <form
-        action={`/contacts/${contact.id}`}
-        method="post"
-      >
-        <input type="hidden" name="contactId" value={contact.id} />
-        <button type="submit">Contact Now</button>
-      </form>
-    </div>
+          <CardContent className="grid gap-4">
+            <form action={`/contacts/${contact.id}`} method="post">
+              <input type="hidden" name="contactId" value={contact.id} />
+              <Button type="submit">Contact now</Button>
+            </form>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   );
 }
