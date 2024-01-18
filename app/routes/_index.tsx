@@ -1,6 +1,13 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link, json, useLoaderData } from "@remix-run/react";
 import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { getContactList } from "~/lib/data/db.server";
 import { prettyLastContact } from "~/lib/utils";
 
@@ -20,31 +27,34 @@ export default function Index() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1 className="text-3xl font-bold">Say Thanks</h1>
-      <h2>Contacts</h2>
+    <main className="flex justify-center">
+      <section>
+        <div className="text-center">
+          <h1 className="text-3xl font-bold">Say Thanks</h1>
+          <h2 className="text-xl font-semibold">My Contacts</h2>
+        </div>
 
-      <ul className="list-none max-w-xl">
-        {data.map((contact) => (
-          <li key={contact.id}>
-            <div className="flex items-center justify-between p-2 border-2 border-gray-300 rounded-md my-2">
-              <div>
-                <h3>{contact.name}</h3>
-                <p>
-                  Last Contacted: {prettyLastContact(contact.lastContacted)}
-                </p>
-              </div>
-              <div>
-                <Button asChild>
-                  <Link to={`/contacts/${contact.id}`}>
-                  Send Thanks
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <ul className="list-none">
+          {data.map((contact) => (
+            <li key={contact.id}>
+              <Card className="flex items-center justify-between border-gray-300 my-2">
+                <CardHeader>
+                  <CardTitle>{contact.name}</CardTitle>
+                  <CardDescription>
+                    Last Contacted: {prettyLastContact(contact.lastContacted)}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent>
+                  <Button asChild>
+                    <Link to={`/contacts/${contact.id}`}>Send Thanks</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </main>
   );
 }
