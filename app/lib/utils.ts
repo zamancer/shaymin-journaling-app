@@ -13,7 +13,7 @@ export const prettyPrintTimestamp = (dateStr: string | null) => {
         const date = new Date(dateStr);
         return date.toLocaleString();
     } else {
-        return "";
+        return "Not yet";
     }
 };
 
